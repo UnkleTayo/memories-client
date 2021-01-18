@@ -1,4 +1,5 @@
-import React, { useDispatch } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -12,7 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import moment from 'moment';
-import { deletePost } from '../../../actions/posts';
+import { deletePost, likePost } from '../../../actions/posts';
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -43,23 +44,32 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       <div className={classes.details}>
         <Typography variant='body2' color='textSecondary'>
-          {post.tags.map((tag) => `#${tag}`)}
+          {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
       <Typography
-        className={post.title}
+        className={classes.title}
         variant='h5'
-        gutterBottom={post.title}
-      ></Typography>
+        color='black'
+        gutterBottom
+      >
+        {post.title}
+      </Typography>
       <CardContent>
-        <Typography variant='h5' gutterBottom={post.message}></Typography>
+        <Typography variant='body2' color='textSecondary' component='p'>
+          {post.message}
+        </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size='small' color='primary' onClick={() => {}}>
-          <ThumbUpAltIcon fontSize='small' /> like {post.likeCount}
-        </Button>
-        <Button size='small' color='primary' onClick={() => {}}>
-          <DeleteIcon fontSize='small' /> Delete
+        <Button
+          size='small'
+          color='primary'
+          onClick={() => {
+            dispatch(likePost(post._id));
+          }}
+        >
+          <ThumbUpAltIcon fontSize='small' />
+          &nbsp;Like &nbsp; {post.likeCount}
         </Button>
         <Button
           size='small'
@@ -68,8 +78,12 @@ const Post = ({ post, setCurrentId }) => {
             dispatch(deletePost(post._id));
           }}
         >
-          <ThumbUpAltIcon fontSize='small' />
+          <DeleteIcon fontSize='small' />
+          Delete
         </Button>
+        {/* <Button size='small' color='primary'>
+          <ThumbUpAltIcon fontSize='small' />
+        </Button> */}
       </CardActions>
     </Card>
   );
