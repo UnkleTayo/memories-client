@@ -18,6 +18,7 @@ import Input from './Input';
 
 const Auth = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
@@ -36,12 +37,14 @@ const Auth = () => {
   };
 
   const googleSuccess = async (res) => {
-    console.log(res);
+    // console.log(res);
     const result = res?.profileObj;
     const token = res?.tokenId;
 
     try {
       dispatch({ type: 'AUTH', data: { result, token } });
+
+      history.push('/');
     } catch (error) {
       console.log(error);
     }
