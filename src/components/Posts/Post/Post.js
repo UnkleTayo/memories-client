@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import useStyles from './styles';
@@ -53,12 +53,7 @@ const Post = ({ post, setCurrentId }) => {
           {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
-      <Typography
-        className={classes.title}
-        variant='h5'
-        color='black'
-        gutterBottom
-      >
+      <Typography className={classes.title} variant='h5' gutterBottom>
         {post.title}
       </Typography>
       <CardContent>
@@ -72,7 +67,7 @@ const Post = ({ post, setCurrentId }) => {
           color='primary'
           onClick={() => dispatch(likePost(post._id))}
         >
-          <ThumbUpAltIcon fontSize='small' /> Like {post.likeCount}{' '}
+          <FavoriteIcon fontSize='small' /> &nbsp;{post.likeCount}
         </Button>
         <Button
           size='small'

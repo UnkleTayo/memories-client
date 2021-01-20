@@ -61,9 +61,9 @@ const Form = ({ currentId, setCurrentId }) => {
           {currentId ? `Editing "${post.title}"` : 'Creating a Memory'}
         </Typography>
         <TextField
-          name='creator'
-          variant='outlined'
-          label='Creator'
+          name={'creator'}
+          variant={'outlined'}
+          label={'Creator'}
           fullWidth
           value={postData.creator}
           onChange={(e) =>
