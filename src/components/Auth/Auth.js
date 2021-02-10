@@ -12,10 +12,10 @@ import {
 import { useHistory } from 'react-router-dom';
 import Icon from './Icon';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { signin, signup } from '../../actions/auth';
 
 import useStyles from './styles';
 import Input from './Input';
-import { signin, signup } from '../../actions/auth';
 
 const initialState = {
   firstName: '',
@@ -33,20 +33,33 @@ const Auth = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initialState);
 
-  const state = null;
+  const clearForm = () => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-  };
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    console.log(formData);
     if (isSignup) {
       dispatch(signup(formData, history));
     } else {
       dispatch(signin(formData, history));
     }
+
+    clearForm();
+  };
+
+  const handleChange = (e) => {
+    e.persist();
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    // setFormData( prevState = () => ({ ...prevState.formData }));
   };
 
   const handleShowPassword = () =>
@@ -54,7 +67,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignUp) => !prevIsSignUp);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {

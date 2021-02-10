@@ -8,6 +8,7 @@ const Posts = ({ setCurrentId }) => {
   // post is being returned from the reducers index file
   // createSelector is used to acces data from the state
   const posts = useSelector((state) => state.posts);
+  console.log(posts, setCurrentId);
   const classes = useStyles();
   return !posts.length ? (
     <CircularProgress />

@@ -19,6 +19,29 @@ import { deletePost, likePost } from '../../../actions/posts';
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem('profile'));
+
+  const Likes = () => {
+    if (post.likes.length > 0) {
+      return post.likes.find(
+        (like) => like === (user?.result?.googleId || user?.result?._id)
+      ) ? (
+        <>
+          <FavoriteIcon fontSize='small' />
+          &nbsp;
+          {post.likes.length > 2
+            ? `You and ${post.likes.length - 1}`
+            : `${post.likes.length} like${post.like.length > 1 ? 's' : ''}`}
+        </>
+      ) : (
+        <>
+          {' '}
+          <FavoriteIcon fontSize='small' /> &nbsp;
+          {post.likes.length === 1 ? 'Like' : 'Likes'}{' '}
+        </>
+      );
+    }
+  };
 
   return (
     <Card className={classes.card}>
@@ -33,7 +56,7 @@ const Post = ({ post, setCurrentId }) => {
 
       <div className={classes.overlay}>
         <Typography variant='h6' color='initial'>
-          {post.creator}
+          {post.name}
         </Typography>
         <Typography variant='body2'>
           {moment(post.createdAt).fromNow()}
@@ -65,9 +88,10 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size='small'
           color='primary'
+          disabled={!user?.result}
           onClick={() => dispatch(likePost(post._id))}
         >
-          <FavoriteIcon fontSize='small' /> &nbsp;{post.likeCount}
+          <Likes />
         </Button>
         <Button
           size='small'
