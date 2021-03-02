@@ -43,10 +43,10 @@ const Auth = () => {
     });
   };
 
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formData);
     if (isSignup) {
       dispatch(signup(formData, history));
     } else {
@@ -150,7 +150,7 @@ const Auth = () => {
           </Button>
 
           <GoogleLogin
-            clientId='858910407946-7p0kl0tqpfd0dao7je2t27h5e4kvccp3.apps.googleusercontent.com'
+            clientId='486280340761-b8or15cf5rgkj2ur7sjmigthjjf2gq1g.apps.googleusercontent.com'
             render={(renderProps) => (
               <Button
                 color='primary'
