@@ -6,11 +6,12 @@ import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import {StartIcon} from './Icon'
+
 import { signin, signup } from '../../actions/auth';
 import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
+import StartIcon from '../../utils/StartIcon';
 
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
