@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const token = user?.token;
+    const token = user.token;
 
     if (token) {
       const decodedToken = decode(token);
@@ -33,7 +33,7 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location]);
+  }, [location, logout, user]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
