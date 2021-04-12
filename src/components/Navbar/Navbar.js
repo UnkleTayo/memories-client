@@ -20,7 +20,7 @@ const Navbar = () => {
     history.push("/auth");
 
     setUser(null);
-  }, [user])
+  }, [history,dispatch])
 
   useEffect(() => {
     const token = user?.token;
