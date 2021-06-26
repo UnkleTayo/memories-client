@@ -1,10 +1,9 @@
-body {
-  background-color: #113311;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250' viewBox='0 0 20 20'%3E%3Cg %3E%3Cpolygon fill='%23242' points='20 10 10 0 0 0 20 20'/%3E%3Cpolygon fill='%23242' points='0 10 0 20 10 20'/%3E%3C/g%3E%3C/svg%3E"),
-    url
-      (
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3Cpath fill='none' stroke-width='100' id='a' d='M0.74-509.63l485.39 352.65l-185.4 570.61h-599.97l-185.4-570.61L0.74-509.63 M0.74-510.87l-486.56 353.51l185.85 571.99h601.42L487.3-157.36L0.74-510.87L0.74-510.87z'/%3E%3C/defs%3E%3Cg transform='rotate(0 0 0)' style='transform-origin:center'%3E%3Cg transform='rotate(0 0 0)' style='transform-origin:center'%3E%3Cg transform='rotate(0 0 0)' style='transform-origin:center'%3E%3Cg transform='translate(1000 750)'%3E%3Cuse stroke='%23000' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%230d1508' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%2314230e' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%23183112' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%231c4014' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%231f4f16' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%23215f18' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%23236f19' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%23248019' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%23259119' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%2324a319' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%2323b417' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%2320c715' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%231bd911' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%2312ec0a' href='%23a' transform='rotate(0 0 0)'/%3E%3Cuse stroke='%230F0' href='%23a' transform='rotate(0 0 0)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
-      );
 
-  background-position: top left, right top;
+body {
+  background-color: #f7f8fc;
+}
+
+* {
+  /* font-family: 'Noto Sans JP' !important; */
+  font-family: 'Heebo', sans-serif !important;
 }

@@ -21,22 +21,23 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
-  const formState = useSelector((state) => state.posts);
   const fileRef = useRef();
 
   
+  const clear = () => {
+    setCurrentId(0);
+    setPostData({ title: '', message: '', tags: [], selectedFile: '' });
+    fileRef.current.lastChild.value = null;
+  };
+
   useEffect(() => {
+    if (!post?.title) clear();
     if (post) setPostData(post);
   }, [post]);
 
-  const clear = () => {
-    setCurrentId(0);
-    setPostData({ title: '', message: '', tags: '', selectedFile: '' });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formState);
+
     if (currentId === 0) {
       dispatch(createPost({ ...postData, name: user?.result?.name }));
       clear();
@@ -46,7 +47,6 @@ const Form = ({ currentId, setCurrentId }) => {
       );
       clear();
     }
-    fileRef.current.lastChild.value = null;
   };
 
   if (!user?.result?.name) {
@@ -59,8 +59,16 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
 
+  const handleAddChip = (tag) => {
+    setPostData({ ...postData, tags: [...postData.tags, tag] });
+  };
+
+  const handleDeleteChip = (chipToDelete) => {
+    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+  };
+
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={6}>
       <form
         autoComplete="off"
         noValidate
@@ -90,16 +98,17 @@ const Form = ({ currentId, setCurrentId }) => {
             setPostData({ ...postData, message: e.target.value })
           }
         />
-        <TextField
-          name="tags"
-          variant="outlined"
-          label="Tags (coma separated)"
-          fullWidth
-          value={postData.tags}
-          onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(',') })
-          }
-        />
+        <div style={{ padding: '5px 0', width: '94%' }}>
+          <ChipInput
+            name="tags"
+            variant="outlined"
+            label="Tags"
+            fullWidth
+            value={postData.tags}
+            onAdd={(chip) => handleAddChip(chip)}
+            onDelete={(chip) => handleDeleteChip(chip)}
+          />
+        </div>
         <div ref={fileRef} className={classes.fileInput}>
           <FileBase
             type="file"
