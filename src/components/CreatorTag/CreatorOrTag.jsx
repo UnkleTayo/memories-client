@@ -4,7 +4,7 @@ import { Typography, CircularProgress, Grid, Divider } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Post from '../Posts/Post/Post';
-import { getPostsByCreator, getPostsBySearch } from '../../actions/posts';
+import { getPostByCreator, getPostsBySearch } from '../../actions/posts';
 
 const CreatorOrTag = () => {
   const { name } = useParams();
@@ -17,7 +17,7 @@ const CreatorOrTag = () => {
     if (location.pathname.startsWith('/tags')) {
       dispatch(getPostsBySearch({ tags: name }));
     } else {
-      dispatch(getPostsByCreator(name));
+      dispatch(getPostByCreator(name));
     }
   }, []);
 

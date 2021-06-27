@@ -5,7 +5,6 @@ import {
   UPDATE,
   LIKE,
   DELETE,
-  LOADING,
   ERROR,
   START_LOADING,
   FETCH_POST,
@@ -116,7 +115,8 @@ export const createPost = (post, history) => async (dispatch) => {
 export const updatePost = (id, post) => async (dispatch) => {
   try {
     dispatch({
-      type: LOADING,
+      type: START_LOADING,
+
     });
     const { data } = await api.updatePost(id, post);
 
@@ -137,9 +137,9 @@ export const likePost = (id) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   try {
-    dispatch({
-      type: START_LOADING,
-    });
+    // dispatch({
+    //   type: START_LOADING,
+    // });
     const { data } = await api.likePost(id, user?.token);
     dispatch({ type: LIKE, payload: data });
     dispatch({ type: END_LOADING });
@@ -156,9 +156,9 @@ export const likePost = (id) => async (dispatch) => {
 
 export const commentPost = (value, id) => async (dispatch) => {
   try {
-    dispatch({
-      type: START_LOADING,
-    });
+    // dispatch({
+    //   type: START_LOADING,
+    // });
     const { data } = await api.comment(value, id);
 
     dispatch({ type: COMMENT, payload: data });

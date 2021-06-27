@@ -4,9 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import ChipInput from 'material-ui-chip-input';
 import FileBase from 'react-file-base64';
+import { Formik, Form as Fom, Field } from 'formik';
+import * as Yup from 'yup';
 
 import { createPost, updatePost } from '../../actions/posts';
 import useStyles from './styles';
+
+const memeoriesSchema = Yup.object().shape({
+  title: Yup.string()
+  .min(2, 'Too Short!')
+  .max(50, 'Too Long!')
+  .required('Required'),
+  message: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  selectedFile: Yup.string().required('Required')
+});
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
@@ -21,13 +35,13 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
+  const history = useHistory();
   const fileRef = useRef();
 
-  
   const clear = () => {
     setCurrentId(0);
     setPostData({ title: '', message: '', tags: [], selectedFile: '' });
-    fileRef.current.lastChild.value = null;
+    // fileRef.current.value = null;
   };
 
   useEffect(() => {
@@ -39,7 +53,7 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, history));
       clear();
     } else {
       dispatch(
@@ -47,6 +61,9 @@ const Form = ({ currentId, setCurrentId }) => {
       );
       clear();
     }
+
+    console.log(fileRef.current);
+    // fileRef.current.value = null;
   };
 
   if (!user?.result?.name) {
@@ -64,10 +81,14 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   const handleDeleteChip = (chipToDelete) => {
-    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+    setPostData({
+      ...postData,
+      tags: postData.tags.filter((tag) => tag !== chipToDelete),
+    });
   };
 
   return (
+    <Fom>
     <Paper className={classes.paper} elevation={6}>
       <form
         autoComplete="off"
@@ -139,6 +160,7 @@ const Form = ({ currentId, setCurrentId }) => {
         </Button>
       </form>
     </Paper>
+    </Fom>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Typography, TextField, Button } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 
@@ -11,7 +11,14 @@ const CommentSection = ({ post }) => {
   const dispatch = useDispatch();
   const [comments, setComments] = useState(post?.comments);
   const classes = useStyles();
+  const [refVisible, setRefVisible] = useState(false)
+  
   const commentsRef = useRef();
+  useEffect(() => {
+    if(!refVisible){
+      return
+    }
+  }, [refVisible])
 
   const handleComment = async () => {
     const newComments = await dispatch(
@@ -37,7 +44,7 @@ const CommentSection = ({ post }) => {
               {c.split(':')[1]}
             </Typography>
           ))}
-          <div ref={commentsRef} />
+          <div ref={el =>{commentsRef.current = el; setRefVisible(!!el)}} />
         </div>
         <div style={{ width: '70%' }}>
           <Typography gutterBottom variant="h6">

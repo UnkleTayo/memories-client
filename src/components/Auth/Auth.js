@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Avatar,
   Button,
@@ -130,7 +130,7 @@ const SignUp = () => {
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>
           <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            clientId="486280340761-b8or15cf5rgkj2ur7sjmigthjjf2gq1g.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
                 className={classes.googleButton}

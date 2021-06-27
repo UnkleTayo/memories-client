@@ -1,5 +1,5 @@
 import * as api from '../api/index';
-import { AUTH, ERROR, LOADING } from '../constants/actionTypes';
+import { AUTH, ERROR } from '../constants/actionTypes';
 
 export const signin = (formData, router) => async (dispatch) => {
   try {
@@ -20,9 +20,6 @@ export const signin = (formData, router) => async (dispatch) => {
 
 export const signup = (formData, router) => async (dispatch) => {
   try {
-    dispatch({
-      type: LOADING,
-    });
     const { data } = await api.signUp(formData);
     dispatch({ type: AUTH, data });
     router.push('/');
