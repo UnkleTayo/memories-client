@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef,useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
@@ -25,16 +25,18 @@ const Form = ({ currentId, setCurrentId }) => {
   const fileRef = useRef();
 
   
-  const clear = () => {
-    setCurrentId(0);
-    setPostData({ title: '', message: '', tags: [], selectedFile: '' });
-    // fileRef.current.value = null;
-  };
+  
+    const clear = useCallback(() => {
+      setCurrentId(0);
+      setPostData({ title: '', message: '', tags: [], selectedFile: '' });
+    }, [setCurrentId, setPostData]);
+  
+
 
   useEffect(() => {
     if (!post?.title) clear();
     if (post) setPostData(post);
-  });
+  },[post, clear] );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
