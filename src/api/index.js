@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-// const API = axios.create({ baseURL: 'https://cors-anywhere.herokuapp.com/https://ukt-memories.herokuapp.com' });
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://ukt-memories.herokuapp.com'}) 
+// headers: {
+//   'Access-Control-Allow-Origin' : '*',
+//   'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+//   }
+// });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {

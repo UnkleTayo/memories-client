@@ -4,23 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import ChipInput from 'material-ui-chip-input';
 import FileBase from 'react-file-base64';
-import { Formik, Form as Fom, Field } from 'formik';
-import * as Yup from 'yup';
 
 import { createPost, updatePost } from '../../actions/posts';
 import useStyles from './styles';
-
-const memeoriesSchema = Yup.object().shape({
-  title: Yup.string()
-  .min(2, 'Too Short!')
-  .max(50, 'Too Long!')
-  .required('Required'),
-  message: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  selectedFile: Yup.string().required('Required')
-});
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
@@ -38,6 +24,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const history = useHistory();
   const fileRef = useRef();
 
+  
   const clear = () => {
     setCurrentId(0);
     setPostData({ title: '', message: '', tags: [], selectedFile: '' });
@@ -62,8 +49,8 @@ const Form = ({ currentId, setCurrentId }) => {
       clear();
     }
 
-    console.log(fileRef.current);
-    // fileRef.current.value = null;
+    
+    fileRef.current.value = null;
   };
 
   if (!user?.result?.name) {
@@ -81,44 +68,15 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   const handleDeleteChip = (chipToDelete) => {
-    setPostData({
-      ...postData,
-      tags: postData.tags.filter((tag) => tag !== chipToDelete),
-    });
+    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
   };
 
   return (
-    <Fom>
     <Paper className={classes.paper} elevation={6}>
-      <form
-        autoComplete="off"
-        noValidate
-        className={`${classes.root} ${classes.form}`}
-        onSubmit={handleSubmit}
-      >
-        <Typography variant="h6">
-          {currentId ? `Editing "${post.title}"` : 'Creating a Memory'}
-        </Typography>
-        <TextField
-          name="title"
-          variant="outlined"
-          label="Title"
-          fullWidth
-          value={postData.title}
-          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
-        />
-        <TextField
-          name="message"
-          variant="outlined"
-          label="Message"
-          fullWidth
-          multiline
-          rows={4}
-          value={postData.message}
-          onChange={(e) =>
-            setPostData({ ...postData, message: e.target.value })
-          }
-        />
+      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+        <Typography variant="h6">{currentId ? `Editing "${post?.title}"` : 'Creating a Memory'}</Typography>
+        <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
+        <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <div style={{ padding: '5px 0', width: '94%' }}>
           <ChipInput
             name="tags"
@@ -130,37 +88,11 @@ const Form = ({ currentId, setCurrentId }) => {
             onDelete={(chip) => handleDeleteChip(chip)}
           />
         </div>
-        <div ref={fileRef} className={classes.fileInput}>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
-            }
-          />
-        </div>
-        <Button
-          className={classes.buttonSubmit}
-          variant="contained"
-          color="primary"
-          size="large"
-          type="submit"
-          fullWidth
-        >
-          Submit
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          size="small"
-          onClick={clear}
-          fullWidth
-        >
-          Clear
-        </Button>
+        <div ref={fileRef} className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
+        <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
     </Paper>
-    </Fom>
   );
 };
 
