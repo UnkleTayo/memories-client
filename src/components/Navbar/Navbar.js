@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import decode from "jwt-decode";
+import React, { useState, useEffect } from 'react';
+import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
 import memoriesLogo from '../../images/memoriesLogo.png';
 import memoriesText from '../../images/memoriesText.png';
-import * as actionType from "../../constants/actionTypes";
-import useStyles from "./styles";
+import * as actionType from '../../constants/actionTypes';
+import useStyles from './styles';
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -16,13 +16,13 @@ const Navbar = () => {
   const history = useHistory();
   const classes = useStyles();
 
-
-  const logout = useCallback(() => {
+  const logout = () => {
     dispatch({ type: actionType.LOGOUT });
-    history.push("/auth");
+
+    history.push('/auth');
 
     setUser(null);
-  }, [history,dispatch])
+  };
 
   useEffect(() => {
     const token = user?.token;
@@ -34,8 +34,8 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location, user?.token, logout]);
-  
+  }, [location]);
+
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to="/" className={classes.brandContainer}>
